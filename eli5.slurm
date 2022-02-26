@@ -9,4 +9,4 @@
 #SBATCH --gpus=1
 export HF_DATASETS_CACHE="/home/joberant/NLP_2122/dorcoh4/.cache/huggingface/datasets"
 export TRANSFORMERS_CACHE="/home/joberant/NLP_2122/dorcoh4/.cache/huggingface/"
-python -m bleurt.finetune  -init_bleurt_checkpoint=BLEURT-20  -model_dir=eli5_bleurt_20_checkpoint  -train_set=train_eli5.json  -dev_set=validation_eli5.json 
+python -m bleurt.finetune  -init_bleurt_checkpoint=bleurt-base-128  -model_dir=eli5_bleurt_base_128_checkpoint  -train_set=train_eli5.json  -dev_set=validation_eli5.json 
