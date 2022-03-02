@@ -1,4 +1,4 @@
-print("importing")
+cprint("importing")
 
 from datasets import load_dataset
 from datasets import load_metric
@@ -124,8 +124,8 @@ else: # except IOError:
   #                 print (f'FORDOR float - {float(example["answers"]["score"][i])} {example["answers"]["score"][i]}')
 #                   labels.append(float(example["answers"]["score"][i]))
                   cnt = cnt+1
-                  if cnt > 200000:
-                    break
+#                   if cnt > 200000:
+#                     break
 
         # tokenized_datasets = raw_datasets.map(tokenize_function, batched=True)
         
