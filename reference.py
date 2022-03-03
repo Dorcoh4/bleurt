@@ -160,8 +160,8 @@ else: # except IOError:
 #         print (f"FORDOR lens {len(encodings)}=={len(labels)}")
     #     assert len(encodings) == len(labels)
     
-    preprocess_data("train_eli5")
-    preprocess_data("validation_eli5")
+    preprocess_data("test_eli5")
+#     preprocess_data("validation_eli5")
 #     pickle.dump( my_dataset, open( "my_dataset.pickle", "wb" ) )
 
 # metric = load_metric("spearmanr")
