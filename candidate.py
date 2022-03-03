@@ -118,9 +118,10 @@ else: # except IOError:
 #                   question = question.replace('"','\\"')
 #                   answer = answer.replace('"','\\"')
                     nl = '\n'
+                    tab = '\t'
 #                   candidate = f'question: {question} answer: {answer}'
 #                   reference = f'question: {question} answer: {example["answers"]["text"][0]}'
-                    the_file.write(f"{candidate.replace(nl,'\t')}\n")
+                    the_file.write(f"{candidate.replace(nl, tab)}\n")
 #                   inputs.append(question + sep_token + answer)
   #                 print (f'FORDOR float - {float(example["answers"]["score"][i])} {example["answers"]["score"][i]}')
 #                   labels.append(float(example["answers"]["score"][i]))
