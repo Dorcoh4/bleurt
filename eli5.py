@@ -160,7 +160,7 @@ else: # except IOError:
 #         scaler = StandardScaler()
 #         scaler.fit(tensor_labels)
 #         scaled_labels = scaler.transform(tensor_labels).astype(np.float32)
-#         changeArr(labels)
+        changeArr(scores)
 
       
 #         my_dataset[split_name] = ELI5MetricDataset(encodings, scaled_labels)
@@ -186,8 +186,12 @@ else: # except IOError:
         candidate = candidates[i]
         score = scores[i]
         the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}, "score": {score} }}\n')
-      
-    
+    references, candidates, scores = preprocess_data("train_eli5")  
+    with open(sentence_pairs.jsonl", 'a') as the_file:
+      for i in range(len(references)):
+        reference = references[i]
+        candidate = candidates[i]
+        the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}}}\n')
 #     pickle.dump( my_dataset, open( "my_dataset.pickle", "wb" ) )
 
 # metric = load_metric("spearmanr")
