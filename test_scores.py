@@ -202,15 +202,3 @@ print (f"FORDOR result: {metric.compute(predictions=file_scores, references=scor
 
 # print ("evaluation starting")
 # print (trainer.evaluate())
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
