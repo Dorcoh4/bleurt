@@ -92,7 +92,7 @@ def changeArr(input1):
         input1[index] = float(ranks[input1[index]])
 
 my_dataset = {}
-
+scores = []
 
 
 
@@ -109,7 +109,7 @@ else: # except IOError:
     
           inputs = []
           labels = []
-          scores = []
+          
           cnt = 0
           for example in raw_datasets[split_name]:
 
