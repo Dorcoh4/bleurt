@@ -163,7 +163,7 @@ else: # except IOError:
     
     preprocess_data("test_eli5")
     file_scores = []
-     with open('scores', 'r') as the_file:
+    with open('scores', 'r') as the_file:
         for line in the_file:
           file_score.append(float(line.strip()))          
 #     preprocess_data("validation_eli5")
