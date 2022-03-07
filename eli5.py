@@ -115,13 +115,16 @@ else: # except IOError:
         for example in raw_datasets[split_name]:
 
             question = example["title"]+ example["selftext"] #FORDOR add special sep token?
-            for i in range (len (example["answers"]["a_id"])):
+            num_answers = len (example["answers"]["a_id"])
+            if num_answers == 1:
+              print(f"FORDOR question with one answer")
+            for i in range (num_answers):
                 answer = example["answers"]["text"][i]
 #                   question = question.replace('"','\\"')
 #                   answer = answer.replace('"','\\"')
                 candidate = f'question: {question} answer: {answer}'
-                ref_ind = random.randrange(len(example["answers"]["a_id"]))
-                ref_ind = ((i + 1) % len(example["answers"]["a_id"])) if ref_ind == i else ref_ind
+                ref_ind = random.randrange(num_answers)
+                ref_ind = ((i + 1) % num_answers) if ref_ind == i else ref_ind
                 reference = f'question: {question} answer: {example["answers"]["text"][ref_ind]}'
                 score = float(example["answers"]["score"][i])
                 candidates.append(candidate)
