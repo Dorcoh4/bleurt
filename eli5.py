@@ -117,7 +117,8 @@ else: # except IOError:
             question = example["title"]+ example["selftext"] #FORDOR add special sep token?
             num_answers = len (example["answers"]["a_id"])
             if num_answers == 1:
-              print(f"FORDOR question with one answer")
+              continue
+#               print(f"FORDOR question with one answer")
             for i in range (num_answers):
                 answer = example["answers"]["text"][i]
 #                   question = question.replace('"','\\"')
