@@ -15,7 +15,7 @@ import json
 
 sep_token = "[SEP]" # FORDOR maybe many special tokens
 pretrained_model_name = "roberta-base" # 'bert-base-cased'
-
+random.seed(42)
 
 
 class my_Bert(nn.Module):
@@ -115,12 +115,14 @@ else: # except IOError:
         for example in raw_datasets[split_name]:
 
             question = example["title"]+ example["selftext"] #FORDOR add special sep token?
-            for i in range (1, len (example["answers"]["a_id"])):
+            for i in range (len (example["answers"]["a_id"])):
                 answer = example["answers"]["text"][i]
 #                   question = question.replace('"','\\"')
 #                   answer = answer.replace('"','\\"')
                 candidate = f'question: {question} answer: {answer}'
-                reference = f'question: {question} answer: {example["answers"]["text"][0]}'
+                ref_ind = random.randrange(len(example["answers"]["a_id"]))
+                ref_ind = ((i + 1) % len(example["answers"]["a_id"])) if ref_ind == i else ref_ind
+                reference = f'question: {question} answer: {example["answers"]["text"][ref_ind]}'
                 score = float(example["answers"]["score"][i])
                 candidates.append(candidate)
                 references.append(reference)
@@ -136,7 +138,7 @@ else: # except IOError:
         
         #shuffle data
 #         c = list(zip(inputs, labels))
-#         random.seed(42)
+        
 #         random.shuffle(c)
 #         inputs, labels = zip(*c)
 #         inputs = list(inputs)
