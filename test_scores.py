@@ -165,7 +165,7 @@ else: # except IOError:
     file_scores = []
     with open('scores', 'r') as the_file:
         for line in the_file:
-          file_score.append(float(line.strip()))          
+          file_scores.append(float(line.strip()))          
 #     preprocess_data("validation_eli5")
 #     pickle.dump( my_dataset, open( "my_dataset.pickle", "wb" ) )
 
