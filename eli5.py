@@ -105,25 +105,30 @@ else: # except IOError:
     tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name)
     
     def preprocess_data(split_name):
-        with open(f'{split_name}.json', 'a') as the_file:
     
-          inputs = []
-          labels = []
-          cnt = 0
-          for example in raw_datasets[split_name]:
+        inputs = []
+        labels = []
+        cnt = 0
+        candidates = []
+        references = []
+        scores = []
+        for example in raw_datasets[split_name]:
 
-              question = example["title"]+ example["selftext"] #FORDOR add special sep token?
-              for i in range (1, len (example["answers"]["a_id"])):
-                  answer = example["answers"]["text"][i]
+            question = example["title"]+ example["selftext"] #FORDOR add special sep token?
+            for i in range (1, len (example["answers"]["a_id"])):
+                answer = example["answers"]["text"][i]
 #                   question = question.replace('"','\\"')
 #                   answer = answer.replace('"','\\"')
-                  candidate = f'question: {question} answer: {answer}'
-                  reference = f'question: {question} answer: {example["answers"]["text"][0]}'
-                  the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}, "score": {example["answers"]["score"][i]} }}\n')
+                candidate = f'question: {question} answer: {answer}'
+                reference = f'question: {question} answer: {example["answers"]["text"][0]}'
+                score = float(example["answers"]["score"][i])
+                candidates.append(candidate)
+                references.append(reference)
+                scores.append(scores)
 #                   inputs.append(question + sep_token + answer)
-  #                 print (f'FORDOR float - {float(example["answers"]["score"][i])} {example["answers"]["score"][i]}')
+#                 print (f'FORDOR float - {float(example["answers"]["score"][i])} {example["answers"]["score"][i]}')
 #                   labels.append(float(example["answers"]["score"][i]))
-                  cnt = cnt+1
+                cnt = cnt+1
 #                   if cnt > 200000:
 #                     break
 
@@ -156,9 +161,28 @@ else: # except IOError:
 #         my_dataset[split_name] = ELI5MetricDataset(encodings, scaled_labels)
 #         print (f"FORDOR lens {len(encodings)}=={len(labels)}")
     #     assert len(encodings) == len(labels)
+        assert len(references) == len(candidates)
+        assert len(references) == len(scores)
+        return references, candidates, scores
+      
     
-    preprocess_data("train_eli5")
-    preprocess_data("validation_eli5")
+    references, candidates, scores = preprocess_data("train_eli5")
+    with open(f'{"train_eli5"}.json', 'a') as the_file:
+      for i in range(len(references)):
+        reference = references[i]
+        candidate = candidates[i]
+        score = scores[i]
+        the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}, "score": {score} }}\n')
+    
+    references, candidates, scores = preprocess_data("validation_eli5")
+    with open(f'{"validation_eli5"}.json', 'a') as the_file:
+      for i in range(len(references)):
+        reference = references[i]
+        candidate = candidates[i]
+        score = scores[i]
+        the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}, "score": {score} }}\n')
+      
+    
 #     pickle.dump( my_dataset, open( "my_dataset.pickle", "wb" ) )
 
 # metric = load_metric("spearmanr")
