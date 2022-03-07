@@ -171,6 +171,8 @@ else: # except IOError:
 
 metric = load_metric("spearmanr")
 print (f"FORDOR result: {metric.compute(predictions=file_scores, references=scores)}")
+metric = load_metric("pearsonr")
+print (f"FORDOR result: {metric.compute(predictions=file_scores, references=scores)}")
 # def compute_metrics(eval_pred):
 #     logits, labels = eval_pred
 #     print(f'logits- {max(logits)}, {min(logits)}')
