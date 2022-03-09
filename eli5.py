@@ -187,7 +187,7 @@ else: # except IOError:
         candidate = candidates[i]
         score = scores[i]
         the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}, "score": {score} }}\n')
-    references, candidates, scores = preprocess_data("train_eli5")  
+    references, candidates, scores = preprocess_data("test_eli5")  
     with open("sentence_pairs.jsonl", 'a') as the_file:
       for i in range(len(references)):
         reference = references[i]
