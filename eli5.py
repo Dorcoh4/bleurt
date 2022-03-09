@@ -130,7 +130,7 @@ else: # except IOError:
                 score = float(example["answers"]["score"][i])
                 candidates.append(candidate)
                 references.append(reference)
-                scores.append(scores)
+                scores.append(score)
 #                   inputs.append(question + sep_token + answer)
 #                 print (f'FORDOR float - {float(example["answers"]["score"][i])} {example["answers"]["score"][i]}')
 #                   labels.append(float(example["answers"]["score"][i]))
