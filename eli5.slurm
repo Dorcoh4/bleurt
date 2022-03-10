@@ -3,7 +3,7 @@
 #SBATCH --output=eli5.out
 #SBATCH --error=eli5.err
 #SBATCH --partition=studentbatch
-#SBATCH --time=990
+#SBATCH --time=2000
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --gpus=1
