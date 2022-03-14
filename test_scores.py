@@ -18,7 +18,7 @@ sep_token = "[SEP]" # FORDOR maybe many special tokens
 pretrained_model_name = "roberta-base" # 'bert-base-cased'
 
 
-references, candidates, scores = preprocess_data("train_eli5")
+references, candidates, scores = preprocess_data("test_eli5")
 
 file_scores = []
 with open('scores', 'r') as the_file:
