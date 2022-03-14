@@ -12,11 +12,23 @@ import pickle
 from sklearn.preprocessing import StandardScaler
 import random
 import json
+from eli5 import preprocess_data
 
 sep_token = "[SEP]" # FORDOR maybe many special tokens
 pretrained_model_name = "roberta-base" # 'bert-base-cased'
 
 
+references, candidates, scores = preprocess_data("train_eli5")
+
+file_scores = []
+with open('scores', 'r') as the_file:
+  for line in the_file:
+    file_scores.append(float(line.strip()))  
+
+metric = load_metric("spearmanr")
+print (f"FORDOR result: {metric.compute(predictions=file_scores, references=scores)}")
+metric = load_metric("pearsonr")
+print (f"FORDOR result: {metric.compute(predictions=file_scores, references=scores)}")
 
 class my_Bert(nn.Module):
   def __init__(self, bert):
@@ -104,50 +116,50 @@ else: # except IOError:
     raw_datasets = load_dataset("eli5")
     tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name)
     
-    def preprocess_data(split_name):
-        with open('candidates', 'a') as the_file:
+#     def preprocess_data(split_name):
+#         with open('candidates', 'a') as the_file:
     
-          inputs = []
-          labels = []
+#           inputs = []
+#           labels = []
           
-          cnt = 0
-          for example in raw_datasets[split_name]:
+#           cnt = 0
+#           for example in raw_datasets[split_name]:
 
-              question = example["title"]+ example["selftext"] #FORDOR add special sep token?
-              for i in range (1, len (example["answers"]["a_id"])):
-                  answer = example["answers"]["text"][i]
-#                   question = question.replace('"','\\"')
-#                   answer = answer.replace('"','\\"')
-                  nl = '\n'
-                  tab = '\t'
-                  candidate = f'question: {question} answer: {answer}'
-                  reference = f'question: {question} answer: {example["answers"]["text"][0]}'
-                  scores.append(float(example["answers"]["score"][i]))
-#                   the_file.write(f"{candidate.replace(nl, tab)}\n")
-#                   inputs.append(question + sep_token + answer)
-  #                 print (f'FORDOR float - {float(example["answers"]["score"][i])} {example["answers"]["score"][i]}')
-#                   labels.append(float(example["answers"]["score"][i]))
-                  cnt = cnt+1
-#                   if cnt > 200000:
-#                     break
+#               question = example["title"]+ example["selftext"] #FORDOR add special sep token?
+#               for i in range (1, len (example["answers"]["a_id"])):
+#                   answer = example["answers"]["text"][i]
+# #                   question = question.replace('"','\\"')
+# #                   answer = answer.replace('"','\\"')
+#                   nl = '\n'
+#                   tab = '\t'
+#                   candidate = f'question: {question} answer: {answer}'
+#                   reference = f'question: {question} answer: {example["answers"]["text"][0]}'
+#                   scores.append(float(example["answers"]["score"][i]))
+# #                   the_file.write(f"{candidate.replace(nl, tab)}\n")
+# #                   inputs.append(question + sep_token + answer)
+#   #                 print (f'FORDOR float - {float(example["answers"]["score"][i])} {example["answers"]["score"][i]}')
+# #                   labels.append(float(example["answers"]["score"][i]))
+#                   cnt = cnt+1
+# #                   if cnt > 200000:
+# #                     break
 
-        # tokenized_datasets = raw_datasets.map(tokenize_function, batched=True)
+#         # tokenized_datasets = raw_datasets.map(tokenize_function, batched=True)
         
-        #shuffle data
-#         c = list(zip(inputs, labels))
-#         random.seed(42)
-#         random.shuffle(c)
-#         inputs, labels = zip(*c)
-#         inputs = list(inputs)
-#         labels = list(labels)
+#         #shuffle data
+# #         c = list(zip(inputs, labels))
+# #         random.seed(42)
+# #         random.shuffle(c)
+# #         inputs, labels = zip(*c)
+# #         inputs = list(inputs)
+# #         labels = list(labels)
 
         
-#         encodings = tokenizer(inputs, padding="max_length", truncation=True)
-#         encodings2 = tokenizer(inputs, padding="max_length", truncation=False)
-#         for i in range(len(encodings)):
-#             if len(encodings[i]) != len( encodings2[i]):
-#                 print (print(f"encoding and length {encodings[i]}, {len(encodings[i])} no truncation = {encodings2[i]},  {len(encodings2[i])}"))
-#         
+# #         encodings = tokenizer(inputs, padding="max_length", truncation=True)
+# #         encodings2 = tokenizer(inputs, padding="max_length", truncation=False)
+# #         for i in range(len(encodings)):
+# #             if len(encodings[i]) != len( encodings2[i]):
+# #                 print (print(f"encoding and length {encodings[i]}, {len(encodings[i])} no truncation = {encodings2[i]},  {len(encodings2[i])}"))
+# #         
         
         
 #         tensor_labels = torch.as_tensor(labels).reshape(-1,1)
@@ -161,18 +173,12 @@ else: # except IOError:
 #         print (f"FORDOR lens {len(encodings)}=={len(labels)}")
     #     assert len(encodings) == len(labels)
     
-    preprocess_data("test_eli5")
-    file_scores = []
-    with open('scores', 'r') as the_file:
-        for line in the_file:
-          file_scores.append(float(line.strip()))          
+#     preprocess_data("test_eli5")
+           
 #     preprocess_data("validation_eli5")
 #     pickle.dump( my_dataset, open( "my_dataset.pickle", "wb" ) )
 
-metric = load_metric("spearmanr")
-print (f"FORDOR result: {metric.compute(predictions=file_scores, references=scores)}")
-metric = load_metric("pearsonr")
-print (f"FORDOR result: {metric.compute(predictions=file_scores, references=scores)}")
+
 # def compute_metrics(eval_pred):
 #     logits, labels = eval_pred
 #     print(f'logits- {max(logits)}, {min(logits)}')
