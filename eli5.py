@@ -112,6 +112,7 @@ else: # except IOError:
         candidates = []
         references = []
         scores = []
+        lengths = []
         test_mode = "test" in split_name.lower()
         for example in raw_datasets[split_name]:
 
@@ -134,6 +135,7 @@ else: # except IOError:
                   references.append(reference)
                   scores.append(score)
                 else:
+                  lengths.append(num_answers)
                   for j in range(num_answers):
                     if j != i:
                       reference = f'question: {question} answer: {example["answers"]["text"][j]}'
