@@ -112,6 +112,7 @@ else: # except IOError:
         candidates = []
         references = []
         scores = []
+        test_mode = "test" in split_name.lower()
         for example in raw_datasets[split_name]:
 
             question = example["title"]+ example["selftext"] #FORDOR add special sep token?
@@ -124,13 +125,22 @@ else: # except IOError:
 #                   question = question.replace('"','\\"')
 #                   answer = answer.replace('"','\\"')
                 candidate = f'question: {question} answer: {answer}'
-                ref_ind = random.randrange(num_answers)
-                ref_ind = ((i + 1) % num_answers) if ref_ind == i else ref_ind
-                reference = f'question: {question} answer: {example["answers"]["text"][ref_ind]}'
-                score = float(example["answers"]["score"][i])
-                candidates.append(candidate)
-                references.append(reference)
-                scores.append(score)
+                if not test_mode:
+                  ref_ind = random.randrange(num_answers)
+                  ref_ind = ((i + 1) % num_answers) if ref_ind == i else ref_ind
+                  reference = f'question: {question} answer: {example["answers"]["text"][ref_ind]}'
+                  score = float(example["answers"]["score"][i])
+                  candidates.append(candidate)
+                  references.append(reference)
+                  scores.append(score)
+                else:
+                  for j in range(num_answers):
+                    if j != i:
+                      reference = f'question: {question} answer: {example["answers"]["text"][j]}'
+                      score = float(example["answers"]["score"][i])
+                      candidates.append(candidate)
+                      references.append(reference)
+                      scores.append(score)
 #                   inputs.append(question + sep_token + answer)
 #                 print (f'FORDOR float - {float(example["answers"]["score"][i])} {example["answers"]["score"][i]}')
 #                   labels.append(float(example["answers"]["score"][i]))
