@@ -181,10 +181,10 @@ else: # except IOError:
     #     assert len(encodings) == len(labels)
         assert len(references) == len(candidates)
         assert len(references) == len(scores)
-        return references, candidates, scores
+        return references, candidates, scores, lengths
       
     
-    references, candidates, scores = preprocess_data("train_eli5")
+    references, candidates, scores, lengths = preprocess_data("train_eli5")
     with open(f'{"train_eli5"}.json', 'a') as the_file:
       for i in range(len(references)):
         reference = references[i]
@@ -192,14 +192,14 @@ else: # except IOError:
         score = scores[i]
         the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}, "score": {score} }}\n')
     
-    references, candidates, scores = preprocess_data("validation_eli5")
+    references, candidates, scores, lengths = preprocess_data("validation_eli5")
     with open(f'{"validation_eli5"}.json', 'a') as the_file:
       for i in range(len(references)):
         reference = references[i]
         candidate = candidates[i]
         score = scores[i]
         the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}, "score": {score} }}\n')
-    references, candidates, scores = preprocess_data("test_eli5")  
+    references, candidates, scores, lengths = preprocess_data("test_eli5")  
     with open("sentence_pairs.jsonl", 'a') as the_file:
       for i in range(len(references)):
         reference = references[i]
