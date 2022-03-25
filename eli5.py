@@ -135,7 +135,7 @@ else: # except IOError:
                   references.append(reference)
                   scores.append(score)
                 else:
-                  lengths.append(num_answers)
+                  lengths.append(num_answers - 1)
                   for j in range(num_answers):
                     if j != i:
                       reference = f'question: {question} answer: {example["answers"]["text"][j]}'
