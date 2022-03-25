@@ -18,17 +18,30 @@ sep_token = "[SEP]" # FORDOR maybe many special tokens
 pretrained_model_name = "roberta-base" # 'bert-base-cased'
 
 
-references, candidates, scores = preprocess_data("test_eli5")
+references, candidates, scores, lengths = preprocess_data("test_eli5")
 
-file_scores = []
+file_scores = [] 
+data_scores = []
+i = 0
 with open('scores', 'r') as the_file:
-  for line in the_file:
-    file_scores.append(float(line.strip()))  
+  lines = the_file.readlines()
+  assert sum(lengths) == len(lines)
+  for count in lengths:
+    file_answer_scores = []
+    data_answer_scores = []
+    for j in range(i, i+count):
+      file_answer_scores.append(float(lines[j].strip()))  
+      data_answer_scores.append(scores[j])
+    i = i + count
+    file_scores.append(max(file_answer_scores))  
+    data_scores.append(max(data_answer_scores))  
+#   for line in the_file:
+#     file_scores.append(float(line.strip()))  
 
 metric = load_metric("spearmanr")
-print (f"FORDOR result: {metric.compute(predictions=file_scores, references=scores)}")
+print (f"FORDOR result: {metric.compute(predictions=file_scores, references=data_scores)}")
 metric = load_metric("pearsonr")
-print (f"FORDOR result: {metric.compute(predictions=file_scores, references=scores)}")
+print (f"FORDOR result: {metric.compute(predictions=file_scores, references=data_scores)}")
 
 class my_Bert(nn.Module):
   def __init__(self, bert):
