@@ -25,6 +25,9 @@ data_scores = []
 i = 0
 with open('scores', 'r') as the_file:
   lines = the_file.readlines()
+  print(f"sum = {sum(lengths)}")
+  print(f"lines = {len(lines)}")
+  print(f"scores = {len(scores)}")
   assert sum(lengths) == len(lines)
   for count in lengths:
     file_answer_scores = []
@@ -43,91 +46,91 @@ print (f"FORDOR result: {metric.compute(predictions=file_scores, references=data
 metric = load_metric("pearsonr")
 print (f"FORDOR result: {metric.compute(predictions=file_scores, references=data_scores)}")
 
-class my_Bert(nn.Module):
-  def __init__(self, bert):
-    super().__init__()
-    self.bert = bert
+# class my_Bert(nn.Module):
+#   def __init__(self, bert):
+#     super().__init__()
+#     self.bert = bert
 
 
 
-  def forward(self,input_ids,attention_mask=None,labels=None,**kwargs):
-      res = self.bert.forward(input_ids,attention_mask,labels=labels,**kwargs)
-      print(f"FORDOR-input_ids {input_ids}")
-      print(f"FORDOR-inputss {tokenizer.decode(input_ids[0])}")
-      print(f"FORDOR-inputss {tokenizer.decode(input_ids[1])}")
-      print(f"FORDOR-labels {labels}")
-      print(f"FORDOR-res {res}")
-      return res
+#   def forward(self,input_ids,attention_mask=None,labels=None,**kwargs):
+#       res = self.bert.forward(input_ids,attention_mask,labels=labels,**kwargs)
+#       print(f"FORDOR-input_ids {input_ids}")
+#       print(f"FORDOR-inputss {tokenizer.decode(input_ids[0])}")
+#       print(f"FORDOR-inputss {tokenizer.decode(input_ids[1])}")
+#       print(f"FORDOR-labels {labels}")
+#       print(f"FORDOR-res {res}")
+#       return res
 
 
 
-print("starting load")
+# print("starting load")
 
 
-# for i in range(len(dataset["train_eli5"])):
-#     print(f'train= {dataset["train_eli5"][i]["answers"]}')
-#     print(f'valid= {dataset["validation_eli5"][i]["answers"]}')
-#     print(f'test= {dataset["test_eli5"][i]["answers"]}')
+# # for i in range(len(dataset["train_eli5"])):
+# #     print(f'train= {dataset["train_eli5"][i]["answers"]}')
+# #     print(f'valid= {dataset["validation_eli5"][i]["answers"]}')
+# #     print(f'test= {dataset["test_eli5"][i]["answers"]}')
 
 
 
-class ELI5MetricDataset(torch.utils.data.Dataset):
-    def __init__(self, encodings, labels):
-        self.encodings = encodings
-        self.labels = labels
+# class ELI5MetricDataset(torch.utils.data.Dataset):
+#     def __init__(self, encodings, labels):
+#         self.encodings = encodings
+#         self.labels = labels
 
-    def __getitem__(self, idx):
-        item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
-        item['labels'] = torch.tensor(self.labels[idx])
-        return item
+#     def __getitem__(self, idx):
+#         item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+#         item['labels'] = torch.tensor(self.labels[idx])
+#         return item
 
-    def __len__(self):
-        return len(self.labels)
+#     def __len__(self):
+#         return len(self.labels)
 
 
-def tokenize_function(examples):
-    return tokenizer(examples["text"], padding="max_length", truncation=True)
+# def tokenize_function(examples):
+#     return tokenizer(examples["text"], padding="max_length", truncation=True)
   
   
-def changeArr(input1):
+# def changeArr(input1):
  
-    # Copy input array into newArray
-    newArray = input1.copy()
+#     # Copy input array into newArray
+#     newArray = input1.copy()
      
-    # Sort newArray[] in ascending order
-    newArray.sort()
+#     # Sort newArray[] in ascending order
+#     newArray.sort()
      
-    # Dictionary to store the rank of
-    # the array element
-    ranks = {}
+#     # Dictionary to store the rank of
+#     # the array element
+#     ranks = {}
      
-    rank = 1
+#     rank = 1
      
-    for index in range(len(newArray)):
-        element = newArray[index];
+#     for index in range(len(newArray)):
+#         element = newArray[index];
      
-        # Update rank of element
-        if element not in ranks:
-            ranks[element] = rank
-            rank += 1
+#         # Update rank of element
+#         if element not in ranks:
+#             ranks[element] = rank
+#             rank += 1
          
-    # Assign ranks to elements
-    for index in range(len(input1)):
-        element = input1[index]
-        input1[index] = float(ranks[input1[index]])
+#     # Assign ranks to elements
+#     for index in range(len(input1)):
+#         element = input1[index]
+#         input1[index] = float(ranks[input1[index]])
 
-my_dataset = {}
-scores = []
+# my_dataset = {}
+# scores = []
 
 
 
-if False:# try:
-    with open("my_dataset.pickle", "rb" ) as f:
-        my_dataset = pickle.load(f)
-else: # except IOError:
-    print("could not load my_dataset - preprocessing")
-    raw_datasets = load_dataset("eli5")
-    tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name)
+# if False:# try:
+#     with open("my_dataset.pickle", "rb" ) as f:
+#         my_dataset = pickle.load(f)
+# else: # except IOError:
+#     print("could not load my_dataset - preprocessing")
+#     raw_datasets = load_dataset("eli5")
+#     tokenizer = AutoTokenizer.from_pretrained(pretrained_model_name)
     
 #     def preprocess_data(split_name):
 #         with open('candidates', 'a') as the_file:
