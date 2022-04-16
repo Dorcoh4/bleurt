@@ -109,6 +109,7 @@ else: # except IOError:
         inputs = []
         labels = []
         cnt = 0
+        single_count = 0
         candidates = []
         references = []
         scores = []
@@ -119,6 +120,25 @@ else: # except IOError:
             question = example["title"]+ example["selftext"] #FORDOR add special sep token?
             num_answers = len (example["answers"]["a_id"])
             if num_answers == 1:
+              single_count += 1
+              if random.randint(0, 1) == 0:
+                candidate = f'question: {question} answer: {question}'
+                reference = f'question: {question} answer: {example["answers"]["text"][0]}'
+                candidates.append(candidate)
+                references.append(reference)
+                scores.append(float(0))
+              else:
+                answer_ind = random.randrange(len( raw_datasets[split_name]))
+                other_example = raw_datasets[split_name][answer_ind]
+                other_question = other_example["title"]+ other_example["selftext"]
+                if question != other_question:
+                  bad_ind = random.randrange(len (other_example["answers"]["a_id"]))  
+
+                  candidate = f'question: {question} answer: {other_example["answers"]["text"][bad_ind]}'
+                  reference = f'question: {question} answer: {example["answers"]["text"][0]}'
+                  candidates.append(candidate)
+                  references.append(reference)
+                  scores.append(float(-20))
               continue
 #               print(f"FORDOR question with one answer")
             for i in range (num_answers):
@@ -173,7 +193,8 @@ else: # except IOError:
 #         scaler = StandardScaler()
 #         scaler.fit(tensor_labels)
 #         scaled_labels = scaler.transform(tensor_labels).astype(np.float32)
-        changeArr(scores)
+#         changeArr(scores)
+        print (f"{split_name} singles: {single_count} / {len(raw_datasets[split_name])} = {single_count / len(raw_datasets[split_name])}")
 
       
 #         my_dataset[split_name] = ELI5MetricDataset(encodings, scaled_labels)
