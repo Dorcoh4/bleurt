@@ -121,14 +121,13 @@ else: # except IOError:
             num_answers = len (example["answers"]["a_id"])
             if num_answers == 1:
               single_count += 1
-              dice = random.randint(0, 5) == 0
-              if dice == 0:
+              if random.randint(0, 1) == 0:
                 candidate = f'question: {question} answer: {question}'
                 reference = f'question: {question} answer: {example["answers"]["text"][0]}'
                 candidates.append(candidate)
                 references.append(reference)
                 scores.append(float(0))
-              elif dice == 1:
+              else:
                 answer_ind = random.randrange(len( raw_datasets[split_name]))
                 other_example = raw_datasets[split_name][answer_ind]
                 other_question = other_example["title"]+ other_example["selftext"]
@@ -195,7 +194,7 @@ else: # except IOError:
 #         scaler.fit(tensor_labels)
 #         scaled_labels = scaler.transform(tensor_labels).astype(np.float32)
 #         changeArr(scores)
-        print (f"{split_name} singles: {single_count} / {len(raw_datasets[split_name])} = {single_count / len(raw_datasets[split_name])}")
+        print (f"{split_name} singles: {single_count} / {len(scores)} = {single_count / len(scores)}")
 
       
 #         my_dataset[split_name] = ELI5MetricDataset(encodings, scaled_labels)
