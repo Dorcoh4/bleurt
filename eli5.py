@@ -121,13 +121,14 @@ else: # except IOError:
             num_answers = len (example["answers"]["a_id"])
             if num_answers == 1:
               single_count += 1
-              if random.randint(0, 1) == 0:
+              dice = random.randint(0, 5) == 0
+              if dice == 0:
                 candidate = f'question: {question} answer: {question}'
                 reference = f'question: {question} answer: {example["answers"]["text"][0]}'
                 candidates.append(candidate)
                 references.append(reference)
                 scores.append(float(0))
-              else:
+              elif dice == 1:
                 answer_ind = random.randrange(len( raw_datasets[split_name]))
                 other_example = raw_datasets[split_name][answer_ind]
                 other_question = other_example["title"]+ other_example["selftext"]
