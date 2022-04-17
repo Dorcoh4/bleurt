@@ -114,6 +114,7 @@ else: # except IOError:
         references = []
         scores = []
         lengths = []
+        bads = []
         test_mode = "test" in split_name.lower()
         for example in raw_datasets[split_name]:
 
@@ -124,21 +125,17 @@ else: # except IOError:
               if random.randint(0, 1) == 0:
                 candidate = f'question: {question} answer: {question}'
                 reference = f'question: {question} answer: {example["answers"]["text"][0]}'
-                candidates.append(candidate)
-                references.append(reference)
-                scores.append(float(0))
+                bads.append((candidate, reference, float(0)))
               else:
                 answer_ind = random.randrange(len( raw_datasets[split_name]))
                 other_example = raw_datasets[split_name][answer_ind]
                 other_question = other_example["title"]+ other_example["selftext"]
                 if question != other_question:
                   bad_ind = random.randrange(len (other_example["answers"]["a_id"]))  
-
                   candidate = f'question: {question} answer: {other_example["answers"]["text"][bad_ind]}'
                   reference = f'question: {question} answer: {example["answers"]["text"][0]}'
-                  candidates.append(candidate)
-                  references.append(reference)
-                  scores.append(float(-20))
+                  bads.append((candidate, reference, float(-2)))
+                  
               continue
 #               print(f"FORDOR question with one answer")
             for i in range (num_answers):
@@ -193,7 +190,19 @@ else: # except IOError:
 #         scaler = StandardScaler()
 #         scaler.fit(tensor_labels)
 #         scaled_labels = scaler.transform(tensor_labels).astype(np.float32)
-#         changeArr(scores)
+        changeArr(scores)
+        for thruple in bads:
+          candidates.append(thruple[0])
+          references.append(thruple[1])
+          scores.append(thruple[2])
+          
+        c = list(zip(candidates, references, scores))
+        
+        random.shuffle(c)
+        candidates, references, scores = zip(*c)
+        candidates = list(candidates)
+        references = list(references)
+        scores = list(scores)
         print (f"{split_name} singles: {single_count} / {len(scores)} = {single_count / len(scores)}")
 
       
