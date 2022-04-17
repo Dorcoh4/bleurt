@@ -118,7 +118,7 @@ else: # except IOError:
         test_mode = "test" in split_name.lower()
         for example in raw_datasets[split_name]:
 
-            question = example["title"]+ example["selftext"] #FORDOR add special sep token?
+            question = example["title"]+ " " + example["selftext"] #FORDOR add special sep token?
             num_answers = len (example["answers"]["a_id"])
             if num_answers == 1:
               single_count += 1
