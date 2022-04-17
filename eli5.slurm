@@ -1,7 +1,7 @@
 #! /bin/sh
-#SBATCH --job-name=eli5
-#SBATCH --output=eli5.out
-#SBATCH --error=eli5.err
+#SBATCH --job-name=eli25
+#SBATCH --output=eli25.out
+#SBATCH --error=eli25.err
 #SBATCH --partition=studentbatch
 #SBATCH --time=4320
 #SBATCH --nodes=1
