@@ -203,10 +203,14 @@ else: # except IOError:
         assert len(references) == len(candidates)
         assert len(references) == len(scores)
         return references, candidates, scores, lengths
+
       
-for i in [20,1300,250,2401,77,131]:
-  print(raw_datasets["train_askh"][i])
-  print(raw_datasets["train_asks"][i])
+inds = set()
+while len(inds) < 400:
+  inds.add(random.randrange(len(raw_datasets["test_eli5"])))
+  
+for i in inds:
+  print(raw_datasets["test_eli5"][i])
 #     references, candidates, scores, lengths = preprocess_data("train_eli5")
 #     with open(f'{"train_eli5"}.json', 'a') as the_file:
 #       for i in range(len(references)):
