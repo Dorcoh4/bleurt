@@ -115,6 +115,8 @@ else: # except IOError:
         scores = []
         lengths = []
         test_mode = "test" in split_name.lower()
+        with open('test_answers.txt', encoding="utf8", newline='') as f:
+          file_s = f.read()
         for example in raw_datasets[split_name]:
 
             question = example["title"]+ example["selftext"] #FORDOR add special sep token?
@@ -136,6 +138,9 @@ else: # except IOError:
 
                   candidate = f'question: {question} answer: {other_example["answers"]["text"][bad_ind]}'
                   reference = f'question: {question} answer: {example["answers"]["text"][0]}'
+                  
+                  if question in file_s:
+                    print (candidate)
                   candidates.append(candidate)
                   references.append(reference)
                   scores.append(float(-20))
