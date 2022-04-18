@@ -139,8 +139,6 @@ else: # except IOError:
                   candidate = f'question: {question} answer: {other_example["answers"]["text"][bad_ind]}'
                   reference = f'question: {question} answer: {example["answers"]["text"][0]}'
                   
-                  if question in file_s:
-                    print (candidate)
                   candidates.append(candidate)
                   references.append(reference)
                   scores.append(float(-20))
@@ -152,6 +150,7 @@ else: # except IOError:
 #                   answer = answer.replace('"','\\"')
                 candidate = f'question: {question} answer: {answer}'
                 if not test_mode:
+                  
                   ref_ind = random.randrange(num_answers)
                   ref_ind = ((i + 1) % num_answers) if ref_ind == i else ref_ind
                   reference = f'question: {question} answer: {example["answers"]["text"][ref_ind]}'
@@ -160,6 +159,8 @@ else: # except IOError:
                   references.append(reference)
                   scores.append(score)
                 else:
+                  if question in file_s:
+                    print (candidate)
                   lengths.append(num_answers - 1)
                   for j in range(num_answers):
                     if j != i:
@@ -231,7 +232,7 @@ inds = set()
 #         candidate = candidates[i]
 #         score = scores[i]
 #         the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}, "score": {score} }}\n')
-#     references, candidates, scores, lengths = preprocess_data("test_eli5")  
+references, candidates, scores, lengths = preprocess_data("test_eli5")  
 #     with open("sentence_pairs.jsonl", 'a') as the_file:
 #       for i in range(len(references)):
 #         reference = references[i]
