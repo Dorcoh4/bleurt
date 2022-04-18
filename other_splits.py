@@ -211,11 +211,11 @@ else: # except IOError:
 
       
 inds = set()
-while len(inds) < 400:
-  inds.add(random.randrange(len(raw_datasets["test_eli5"])))
+# while len(inds) < 400:
+#   inds.add(random.randrange(len(raw_datasets["test_eli5"])))
   
-for i in inds:
-  print(raw_datasets["test_eli5"][i])
+# for i in inds:
+#   print(raw_datasets["test_eli5"][i])
 #     references, candidates, scores, lengths = preprocess_data("train_eli5")
 #     with open(f'{"train_eli5"}.json', 'a') as the_file:
 #       for i in range(len(references)):
