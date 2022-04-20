@@ -121,6 +121,7 @@ else: # except IOError:
             question = example["title"]+ " " + example["selftext"] #FORDOR add special sep token?
             num_answers = len (example["answers"]["a_id"])
             if num_answers == 1:
+              lengths.append(1)
               single_count += 1
               if random.randint(0, 1) == 0:
                 candidate = f'question: {question} answer: {question}'
@@ -195,14 +196,14 @@ else: # except IOError:
           candidates.append(thruple[0])
           references.append(thruple[1])
           scores.append(thruple[2])
-          
-        c = list(zip(candidates, references, scores))
-        
-        random.shuffle(c)
-        candidates, references, scores = zip(*c)
-        candidates = list(candidates)
-        references = list(references)
-        scores = list(scores)
+        if not test_mode:
+          c = list(zip(candidates, references, scores))
+
+          random.shuffle(c)
+          candidates, references, scores = zip(*c)
+          candidates = list(candidates)
+          references = list(references)
+          scores = list(scores)
         print (f"{split_name} singles: {single_count} / {len(scores)} = {single_count / len(scores)}")
 
       
