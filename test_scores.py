@@ -14,6 +14,7 @@ import random
 import json
 from eli5 import preprocess_data
 
+random.seed(42)
 sep_token = "[SEP]" # FORDOR maybe many special tokens
 pretrained_model_name = "roberta-base" # 'bert-base-cased'
 
