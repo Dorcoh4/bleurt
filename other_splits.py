@@ -32,7 +32,7 @@ with open('manual_questions.csv', 'r') as the_file:
   lines = the_file.readlines()
   for line in lines:
     print (f'line:{line}')
-    for i, x in enumerate(candidates):
+#     for i, x in enumerate(candidates):
 #       print(f'candidate = {x}')
     local_indices = [i for i, x in enumerate(candidates) if x.replace('\n','\\n') in line]
     print(len(local_indices))
