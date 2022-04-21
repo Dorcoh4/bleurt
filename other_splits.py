@@ -35,11 +35,14 @@ with open('manual_questions.csv', 'r') as the_file:
 #     for i, x in enumerate(candidates):
 #       if "there any car crashes that make the car run faster afterward" in x:
 #         print(f'candidate = {x}')
-    local_indices = [i for i, x in enumerate(candidates) if line[len(prefix): len(prefix) + min(45, len(line))].replace('\\n','\n') in x]
+    local_indices = [i for i, x in enumerate(candidates) if line[len(prefix): len(prefix) + min(45, len(line)-1)].replace('\\n','\n') in x]
     print(len(local_indices))
     new_references += [references[i] for i in local_indices]
     local_cand = [candidates[i] for i in local_indices]
-    assert len (set(local_cand)) == 1
+    if len (set(local_cand)) != 1:
+      print("PROBLEM")
+      print (line)
+      print (local_cand)
     new_candidates += local_cand
     new_scores += [scores[i] for i in local_indices]
     new_lengths.append(len(local_indices))
