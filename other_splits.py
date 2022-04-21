@@ -31,14 +31,16 @@ prefix = "answer: "
 with open('manual_questions.csv', 'r') as the_file:
   lines = the_file.readlines()
   for line in lines:
-    print (f'line:{line}')
-    for i, x in enumerate(candidates):
-      if "there any car crashes that make the car run faster afterward" in x:
-        print(f'candidate = {x}')
-    local_indices = [i for i, x in enumerate(candidates) if x.replace('\n','\\n') in line]
+#     print (f'line:{line}')
+#     for i, x in enumerate(candidates):
+#       if "there any car crashes that make the car run faster afterward" in x:
+#         print(f'candidate = {x}')
+    local_indices = [i for i, x in enumerate(candidates) if line[len(prefix): len(prefix) + 15].replace('\\n','\n') in x]
     print(len(local_indices))
     new_references += [references[i] for i in local_indices]
-    new_candidates += [candidates[i] for i in local_indices]
+    local_cand = [candidates[i] for i in local_indices]
+    assert len (set(local_cand)) == 1
+    new_candidates += local_cand
     new_scores += [scores[i] for i in local_indices]
     new_lengths.append(len(local_indices))
     
