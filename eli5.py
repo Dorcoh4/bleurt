@@ -214,28 +214,28 @@ else: # except IOError:
         assert len(references) == len(scores)
         return references, candidates, scores, lengths
       
-    
-    references, candidates, scores, lengths = preprocess_data("train_eli5")
-    with open(f'{"train_eli5"}.json', 'a') as the_file:
-      for i in range(len(references)):
-        reference = references[i]
-        candidate = candidates[i]
-        score = scores[i]
-        the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}, "score": {score} }}\n')
-    
-    references, candidates, scores, lengths = preprocess_data("validation_eli5")
-    with open(f'{"validation_eli5"}.json', 'a') as the_file:
-      for i in range(len(references)):
-        reference = references[i]
-        candidate = candidates[i]
-        score = scores[i]
-        the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}, "score": {score} }}\n')
-    references, candidates, scores, lengths = preprocess_data("test_eli5")  
-    with open("sentence_pairs.jsonl", 'a') as the_file:
-      for i in range(len(references)):
-        reference = references[i]
-        candidate = candidates[i]
-        the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}}}\n')
+    def main():
+      references, candidates, scores, lengths = preprocess_data("train_eli5")
+      with open(f'{"train_eli5"}.json', 'a') as the_file:
+        for i in range(len(references)):
+          reference = references[i]
+          candidate = candidates[i]
+          score = scores[i]
+          the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}, "score": {score} }}\n')
+
+      references, candidates, scores, lengths = preprocess_data("validation_eli5")
+      with open(f'{"validation_eli5"}.json', 'a') as the_file:
+        for i in range(len(references)):
+          reference = references[i]
+          candidate = candidates[i]
+          score = scores[i]
+          the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}, "score": {score} }}\n')
+      references, candidates, scores, lengths = preprocess_data("test_eli5")  
+      with open("sentence_pairs.jsonl", 'a') as the_file:
+        for i in range(len(references)):
+          reference = references[i]
+          candidate = candidates[i]
+          the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}}}\n')
 #     pickle.dump( my_dataset, open( "my_dataset.pickle", "wb" ) )
 
 # metric = load_metric("spearmanr")
@@ -270,3 +270,7 @@ else: # except IOError:
 
 # print ("evaluation starting")
 # print (trainer.evaluate())
+
+
+if __name__ == "__main__":
+   main()
