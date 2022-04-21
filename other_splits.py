@@ -41,7 +41,7 @@ with open('manual_questions.csv', 'r') as the_file:
 #   for line in the_file:
 #     file_scores.append(float(line.strip()))  
 
-references, candidates, scores, lengths = new_references, new_candidates, new_scores, new_lenghts
+references, candidates, scores, lengths = new_references, new_candidates, new_scores, new_lengths
 with open("sentence_pairs_manual.jsonl", 'a') as the_file:
   for i in range(len(references)):
     reference = references[i]
