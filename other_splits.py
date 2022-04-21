@@ -31,7 +31,7 @@ prefix = "answer: "
 with open('manual_questions.csv', 'r') as the_file:
   lines = the_file.readlines()
   for line in lines:
-    local_indices = [i for i, x in enumerate(candidates) if x in line]
+    local_indices = [i for i, x in enumerate(candidates) if x.replace('\n','\\n') in line]
     new_references += [references[i] for i in local_indices]
     new_candidates += [candidates[i] for i in local_indices]
     new_scores += [scores[i] for i in local_indices]
