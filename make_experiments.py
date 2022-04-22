@@ -36,9 +36,9 @@ def make(guess_file, gold_file):
     
   with open(f"sentence_pairs_{guess_file[:guess_file.find('.')]}.jsonl", 'a') as the_file:
     for i in range(len(references)):
-    reference = references[i]
-    candidate = candidates[i]
-    the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}}}\n')
+      reference = references[i]
+      candidate = candidates[i]
+      the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}}}\n')
     
     
 make("copy_input.jsonl", "gold_copy_input.jsonl")
