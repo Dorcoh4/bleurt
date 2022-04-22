@@ -28,7 +28,7 @@ def make(guess_file, gold_file):
     guess_obj = json.loads(guess_lines[i])
     question = "question: " + guess_obj["input"]
     candidates.append(question + " answer: " + guess_obj["output"][0]["answer"])
-    lenghts.append(len(gold_obj["output"]))
+    lengths.append(len(gold_obj["output"]))
     for ref in gold_obj["output"]:
       references.append(question + " answer: " + ref["answer"])
     
