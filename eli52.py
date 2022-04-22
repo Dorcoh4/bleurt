@@ -219,8 +219,8 @@ else: # except IOError:
       val_references, val_candidates, val_scores, val_lengths = preprocess_data("validation_eli5")
       combined_scores = scores + val_scores
       changeArr(combined_scores)
-      scores = combined_scored[:len(scores)]
-      val_scores = combined_scored[len(scores):]
+      scores = combined_scores[:len(scores)]
+      val_scores = combined_scores[len(scores):]
       
       with open(f'{"train_eli5"}.json', 'a') as the_file:
         for i in range(len(references)):
