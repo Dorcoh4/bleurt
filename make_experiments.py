@@ -34,7 +34,7 @@ def make(guess_file, gold_file):
     
     
     
-  with open(f"sentence_pairs_{guess_file[:guess_file.find(".")]}.jsonl", 'a') as the_file:
+  with open(f"sentence_pairs_{guess_file[:guess_file.find('.')]}.jsonl", 'a') as the_file:
     for i in range(len(references)):
     reference = references[i]
     candidate = candidates[i]
