@@ -45,7 +45,10 @@ with open('manual_questions.csv', 'r') as the_file:
     if len(local_indices) == 0:
       local_indices = [i for i, x in enumerate(candidates) if safety[err_cnt][0] in x and safety[err_cnt][1] in x]
       print (line)
-      print (candidates[local_indices[0]])
+      if len(local_indices) == 0:
+        print (f"PROBLEM2 {safety[err_cnt]}")
+      else:
+        print (candidates[local_indices[0]])
       err_cnt += 1
     new_references += [references[i] for i in local_indices]
     local_cand = [candidates[i] for i in local_indices]
