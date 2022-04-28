@@ -20,7 +20,7 @@ with open(file_name, 'r') as the_file:
         obj = json.loads(line)
         candidates.append(obj["candidate"])
         references.append(obj["reference"])
-        break
+#         break
       bertscore_scores = bertscore.compute(predictions=candidates, references=references, lang="en") ['f1']
       rouge_scores = rouge.compute(predictions=candidates, references=references, rouge_types=['rougeL'], use_aggregator=False)['rougeL']
 #         bleu_scores = bleu.compute(predictions=candidates, references=references)[]
@@ -34,6 +34,6 @@ with open(file_name, 'r') as the_file:
         rouge_file.write(str(rouge_scores[i]) + "\n" )
         bertscore_file.write(str(bertscore_scores[i]) + "\n" )
     
-print (f"{len(bertscore_scores)}  -> {sum(scores)/len(bertscore_scores)}")
+print (f"{len(bertscore_scores)}  -> {sum(bertscore_scores)/len(bertscore_scores)}")
 print("that was bertscore now rougeL")
-print (f"{len(rouge_scores)}  -> {sum(scores)/len(rouge_scores)}")
+print (f"{len(rouge_scores)}  -> {sum(rouge_scores)/len(rouge_scores)}")
