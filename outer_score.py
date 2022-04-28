@@ -20,11 +20,11 @@ with open(file_name, 'r') as the_file:
         obj = json.loads(line)
         candidates.append(obj["candidate"])
         references.append(obj["reference"])
-#         break
+        break
       bertscore_scores = bertscore.compute(predictions=candidates, references=references, lang="en") ['f1']
       rouge_scores = rouge.compute(predictions=candidates, references=references, rouge_types=['rougeL'], use_aggregator=False)['rougeL']
 #         bleu_scores = bleu.compute(predictions=candidates, references=references)[]
-#       rouge_scores = [score.fmeasure for score in rouge_scores]
+      rouge_scores = [score.fmeasure for score in rouge_scores]
       if len(rouge_scores) < 10:
         print(rouge_scores)
       print(len(rouge_scores))
