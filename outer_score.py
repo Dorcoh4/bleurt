@@ -23,8 +23,9 @@ with open(file_name, 'r') as the_file:
       bertscore_scores = bertscore.compute(predictions=candidates, references=references, lang="en") ['f1']
       rouge_scores = rouge.compute(predictions=candidates, references=references)['rougeL']
 #         bleu_scores = bleu.compute(predictions=candidates, references=references)[]
-      rouge_scores = [score.fmeasure for score in rouge_scores]
-      print(rouge_scores)
+      rouge_scores = [score["fmeasure"] for score in rouge_scores]
+      if len(rouge_scores) < 10:
+        print(rouge_scores)
       print(len(rouge_scores))
       print(len(bertscore_scores))
       assert len(rouge_scores) == len(bertscore_scores)
