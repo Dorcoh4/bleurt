@@ -21,7 +21,7 @@ with open(file_name, 'r') as the_file:
         candidates.append(obj["candidate"])
         references.append(obj["reference"])
       bertscore_scores = bertscore.compute(predictions=candidates, references=references, lang="en") ['f1']
-      rouge_scores = rouge.compute(predictions=candidates, references=references)['rougeL']
+      rouge_scores = rouge.compute(predictions=candidates, references=references, use_aggregator=False)['rougeL']
 #         bleu_scores = bleu.compute(predictions=candidates, references=references)[]
 #       rouge_scores = [score.fmeasure for score in rouge_scores]
       if len(rouge_scores) < 10:
