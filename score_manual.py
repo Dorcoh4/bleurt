@@ -41,14 +41,14 @@ with open('manual_questions.csv', 'r') as the_file:
 #       if "there any car crashes that make the car run faster afterward" in x:
 #         print(f'candidate = {x}')
     local_indices = [i for i, x in enumerate(candidates) if line[line.find(prefix) + len(prefix): line.find(prefix) + len(prefix) + min(32, len(line)-1)].replace('\\n','') in x and line[line.find(q_prefix) + len(q_prefix): line.find(q_prefix) + len(q_prefix) + min(32, len(line)-1)].replace('\\n','') in x]
-    print(len(local_indices))
+#     print(len(local_indices))
     if len(local_indices) == 0:
       local_indices = [i for i, x in enumerate(candidates) if safety[err_cnt][0] in x and safety[err_cnt][1] in x]
-      print (line)
+#       print (line)
       if len(local_indices) == 0:
         print (f"PROBLEM2 {safety[err_cnt]}")
       else:
-        print (candidates[local_indices[0]])
+#         print (candidates[local_indices[0]])
       err_cnt += 1
     new_references += [references[i] for i in local_indices]
     local_cand = [candidates[i] for i in local_indices]
@@ -65,7 +65,7 @@ with open('manual_questions.csv', 'r') as the_file:
 #     file_scores.append(float(line.strip()))  
 
 references, candidates, scores, lengths = new_references, new_candidates, new_scores, new_lengths
-with open('scores_passover2_manual', 'r') as the_file:
+with open('scores_base', 'r') as the_file:
   with open('csv_scores.txt', 'r') as csv_file:
     lines = the_file.readlines()
     csv_lines = csv_file.readlines()
