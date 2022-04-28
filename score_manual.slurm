@@ -1,7 +1,7 @@
 #! /bin/sh
-#SBATCH --job-name=eli5-score_man
-#SBATCH --output=score_man.out
-#SBATCH --error=score_man.err
+#SBATCH --job-name=eli5-score_man2
+#SBATCH --output=score_man2.out
+#SBATCH --error=score_man2.err
 #SBATCH --partition=studentbatch
 #SBATCH --time=1500
 #SBATCH --nodes=1
