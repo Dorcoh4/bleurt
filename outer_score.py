@@ -24,6 +24,8 @@ with open(file_name, 'r') as the_file:
       rouge_scores = rouge.compute(predictions=candidates, references=references)['rougeL']
 #         bleu_scores = bleu.compute(predictions=candidates, references=references)[]
       rouge_scores = [score.fmeasure for score in rouge_scores]
+      print(len(rouge_scores))
+    print(len(bertscore_scores))
       assert len(rouge_scores) == len(bertscore_scores)
       for i in range(len(rouge_scores)):
         rouge_file.write(str(rouge_scores[i]) + "\n" )
