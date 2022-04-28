@@ -1,7 +1,7 @@
 import sys
 
 file_name = sys.argv[1]
-score = []
+scores = []
 with open(file_name, 'r') as the_file:  
   for line in the_file:
     scores.append(float(line.strip()))
