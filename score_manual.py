@@ -83,5 +83,5 @@ with open('scores_passover2_manual', 'r') as the_file:
       i = i + count
       file_scores.append(max(file_answer_scores))  
       data_scores.append(float(csv_lines[k].strip()))
-      k + =1
+      k += 1
     
