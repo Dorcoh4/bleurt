@@ -65,7 +65,7 @@ with open('manual_questions.csv', 'r') as the_file:
 #     file_scores.append(float(line.strip()))  
 
 references, candidates, scores, lengths = new_references, new_candidates, new_scores, new_lengths
-with open('scores_steps2', 'r') as the_file:
+with open('scores_long_gold', 'r') as the_file:
   with open('csv_scores.txt', 'r') as csv_file:
     lines = the_file.readlines()
     csv_lines = csv_file.readlines()
