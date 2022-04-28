@@ -85,3 +85,7 @@ with open('scores_passover2_manual', 'r') as the_file:
       data_scores.append(float(csv_lines[k].strip()))
       k += 1
     
+metric = load_metric("spearmanr")
+print (f"FORDOR result: {metric.compute(predictions=file_scores, references=data_scores)}")
+metric = load_metric("pearsonr")
+print (f"FORDOR result: {metric.compute(predictions=file_scores, references=data_scores)}")
