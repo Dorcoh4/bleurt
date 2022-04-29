@@ -30,6 +30,6 @@ with open(file_name3, 'r') as corr_file:
 
     
 metric = load_metric("spearmanr")
-print (f"FORDOR result: {metric.compute(predictions=scores, references=corr_score)}")
+print (f"FORDOR result: {metric.compute(predictions=scores, references=corr_scores)}")
 metric = load_metric("pearsonr")
-print (f"FORDOR result: {metric.compute(predictions=scores, references=corr_score)}")
+print (f"FORDOR result: {metric.compute(predictions=scores, references=corr_scores)}")
