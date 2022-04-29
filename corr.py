@@ -26,7 +26,7 @@ with open(file_name, 'r') as in_file:
     
 with open(file_name3, 'r') as corr_file:  
   for line in corr_file:
-    corr_score.append(float(line.strip()))
+    corr_scores.append(float(line.strip()))
 
     
 metric = load_metric("spearmanr")
