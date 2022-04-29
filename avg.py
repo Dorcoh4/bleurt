@@ -6,8 +6,8 @@ file_name2 = sys.argv[2]
 scores = []
 with open(file_name, 'r') as in_file:  
   with open(file_name2, 'r') as out_file:  
-    in_lines = in_file.readLines()
-    out_lines = out_file.readLines()
+    in_lines = in_file.readlines()
+    out_lines = out_file.readlines()
     assert len(out_lines) == len(in_lines)
     i = 0
     while i < len(out_lines):
