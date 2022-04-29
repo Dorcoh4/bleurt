@@ -14,7 +14,7 @@ with open(file_name, 'r') as in_file:
       local_score = [float(out_lines[i].strip())]
       candidate = json.loads(in_lines[i])["candidate"]
       i += 1
-      while candidate == json.loads(in_lines[i])["candidate"]:
+      while i < len(out_lines) and candidate == json.loads(in_lines[i])["candidate"]:
         local_score.append(float(out_lines[i].strip()))
         i += 1
       scores.append(max(local_score))
