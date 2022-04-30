@@ -8,18 +8,18 @@ bertscore = load_metric("bertscore")
 rouge = load_metric("rouge")
 # bleu = load_metric("bleu")
 
-
+prefix = "answer: "
 candidates = []
 references = []
 with open(file_name, 'r') as the_file:  
 #   with open("bleurt_"+file_name, 'w') as bleurt_file:  
-  with open("rouge_" + file_name, 'w') as rouge_file:  
+  with open("rouge_noq_" + file_name, 'w') as rouge_file:  
     with open("bertscore_" + file_name, 'w') as bertscore_file: 
 #       with open("bleu_" + file_name, 'w') as bleu_file: 
       for line in the_file:
         obj = json.loads(line)
-        candidates.append(obj["candidate"])
-        references.append(obj["reference"])
+        candidates.append(obj["candidate"][obj["candidate"].find(prefix) + len(prefix):])
+        references.append(obj["reference"][obj["reference"].find(prefix) + len(prefix):])
 #         break
       bertscore_scores = bertscore.compute(predictions=candidates, references=references, lang="en") ['f1']
       rouge_scores = rouge.compute(predictions=candidates, references=references, rouge_types=['rougeL'], use_aggregator=False)['rougeL']
