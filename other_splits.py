@@ -65,11 +65,11 @@ with open('manual_questions.csv', 'r') as the_file:
 #     file_scores.append(float(line.strip()))  
 
 references, candidates, scores, lengths = new_references, new_candidates, new_scores, new_lengths
-with open("sentence_pairs_manual.jsonl", 'a') as the_file:
+with open("sentence_pairs_manual_no_q.jsonl", 'a') as the_file:
   for i in range(len(references)):
     reference = references[i]
     candidate = candidates[i]
-    the_file.write(f'{{"candidate": {json.dumps(candidate)}, "reference": {json.dumps(reference)}}}\n')
+    the_file.write(f'{{"candidate": {json.dumps(candidate[candidate.find(prefix) + len(prefix):])}, "reference": {json.dumps(reference[reference.find(prefix) + len(prefix):])}}}\n')
 
 
 # metric = load_metric("spearmanr")
